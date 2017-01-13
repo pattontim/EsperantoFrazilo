@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>14winterdictionary</title>
+    <style>
+      .sufikso{
+        background: lightgreen;
+
+      }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>
+      <span>esperanto</span> <span><a href="http://vortaro.net/#Frazo">Fraz<span class="sufikso">il</span>o</a></span>
+    </h1>
+    <textarea id="inText" cols="300" rows="10">Ĉu vi komprenas ĝin</textarea>
+
+    <div id="buttonHolder">
+        <button id="enter">enter</button>
+        <button id="clear">clear</button>
+    </div>
+
+    <table border="1" id="outText">
+    </table>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+
+    <script>
+        $("#enter").click(updateText);
+        $("#clear").click(clear);
+
+        function clear() {
+            
+            wordList = [];
+            $("#outText").text("");
+        }
+
+        function updateText() {
+
+            var text = $("#inText").val();
+
+            $("#outText").text("");
+
+            countWords(text);
+
+            for (var i = 0; i < wordList.length; i++) {
+                $("#outText").append("<tr><td>" + "<a target=\"_blank\" href=\"http://vortaro.net/#" + wordList[i].eo + "\">" + wordList[i].eo + "</a></td><td>" + wordList[i].count + "</td></tr>")
+            }
+
+        };
+
+        wordList = [];
+
+        function sortCount(a, b) {
+            return a.count > b.count ? -1 : 1;
+            //return a.count.localCompare(b.count)
+        }
+
+        function sortWord(a, b) {
+            return a.eo.localeCompare(b.eo);
+        }
+
+        function addWord(x) {
+
+            for (var i = 0; i < wordList.length; i++) {
+                if (x == wordList[i].eo) {
+                    wordList[i].count++
+                        return wordList[i];
+                }
+            }
+
+            var word = {};
+            word.eo = x;
+            word.count = 1;
+            wordList.push(word);
+            return word;
+        }
+
+        function countWords(text1) {
+            var lower = text1.toLowerCase();
+            var punctuationless = lower.replace(/[.,\/#!$?@'%\^&\*;:{}=\-_`~()]/g,"");
+            var finalString = punctuationless.replace(/\s{2,}/g," ");
+            var thewords = finalString.split(" ");
+
+            for (var i = 0; i < thewords.length; i++) {
+
+                result = addWord(thewords[i])
+
+            }
+            wordList = wordList.sort(sortWord);
+            wordList = wordList.sort(sortCount);
+
+            console.table(wordList);
+
+        }
+    </script>
+
+
+
+
+</body>
+
+</html>

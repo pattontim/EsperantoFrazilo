@@ -38,8 +38,9 @@
   <textarea id="inText" cols="300" rows="10">Ĉu vi komprenas ĝin</textarea>
 
   <div id="buttonHolder">
-    <button id="enter">enter</button>
-    <button id="clear">clear</button>
+    <button id="enter">Enter</button>
+    <button id="clear">Clear</button>
+    <button id="parse">Parse</button>
   </div>
 
   <table border="1" id="outText">
@@ -50,11 +51,46 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
   <script>
+    var diacritics = {cx:  'ĉ', gx: 'ĝ', hx: 'ĥ', jx: 'ĵ', sx: 'ŝ', ux: 'ŭ'}
+
     $("#enter").click(updateText);
     $("#clear").click(clear);
+    $("#parse").click(parseDiacritics);
+
+    function parseDiacritics(){
+      var text = $("#inText").val();
+      var diac = removeDiacritic(text);
+      var result;
+
+      while(diac != null){
+        result = diac;
+        diac = removeDiacritic(diac);
+        if(diac == null){
+          break;
+        }
+        console.log("looping");
+        //update text and diac
+      }
+      console.log("Final result: " + result);
+      $("#inText").val(result);
+    }
+
+    function removeDiacritic(sentence){
+      var xText, diacritic;
+      for(xText in diacritics){
+        diacritic = diacritics[xText];
+        if(sentence.indexOf(xText) !== -1){
+          //console.log(diacritic);
+          sentence = sentence.replace(xText, diacritic);
+          return sentence;
+        }
+      }
+      return null;
+      //Why not direct access and have to iterate?
+      //console.log(diacritics[xMark]);
+    }
 
     function clear() {
-
       wordList = [];
       $("#outText").text("");
     }

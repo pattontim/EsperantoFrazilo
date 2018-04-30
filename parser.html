@@ -11,7 +11,7 @@
       background: white;
     }
     header {
-      background: lightgreen;
+      background: darkgreen;
       color: white;
     }
 
@@ -47,7 +47,7 @@
 
 </section>
 
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
   <script>
     $("#enter").click(updateText);
@@ -101,13 +101,15 @@
     }
 
     function countWords(text1) {
+      //reset word list to avoid double counting
+      wordList = [];
+
       var lower = text1.toLowerCase();
       var punctuationless = lower.replace(/[.,\/#!$?@'%\^&\*;:{}=\-_`~()]/g, "");
       var finalString = punctuationless.replace(/\s{2,}/g, " ");
       var thewords = finalString.split(" ");
 
       for (var i = 0; i < thewords.length; i++) {
-
         result = addWord(thewords[i])
 
       }
@@ -119,9 +121,5 @@
     }
   </script>
 
-
-
-
 </body>
-
 </html>

@@ -51,7 +51,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 
   <script>
-    var diacritics = {cx:  'ĉ', gx: 'ĝ', hx: 'ĥ', jx: 'ĵ', sx: 'ŝ', ux: 'ŭ'}
+    var diacritics = {cx:  'ĉ', gx: 'ĝ', hx: 'ĥ', jx: 'ĵ', sx: 'ŝ', ux: 'ŭ', Cx: 'Ĉ', Gx: 'Ĝ', Hx: 'Ĥ', Jx: 'Ĵ', Sx: 'Ŝ', Ux: 'Ŭ'}
 
     $("#enter").click(updateText);
     $("#clear").click(clear);
@@ -60,7 +60,7 @@
     function parseDiacritics(){
       var text = $("#inText").val();
       var diac = removeDiacritic(text);
-      var result;
+      var result = text;
 
       while(diac != null){
         result = diac;
@@ -68,10 +68,9 @@
         if(diac == null){
           break;
         }
-        console.log("looping");
         //update text and diac
       }
-      console.log("Final result: " + result);
+//      console.log("Final result: " + result);
       $("#inText").val(result);
     }
 
